@@ -1,15 +1,16 @@
 <template>
+<transition name="nav-change">
 	<div class="nav" @click="isShow1">
-		<transition name="title_change">
-			<p class="nav_title" v-if="isSearch">{{title}}</p>
+		<transition name="title-change">
+			<p class="nav-title" v-if="isSearch">{{title}}</p>
 		</transition>
-		<transition name="search_change">
+		<transition name="search-change">
 			<van-search 
 				placeholder="请输入搜索关键词" 
 				background="#ececec" 
 				style="flex-grow: 10;"
 				shape="round"
-				maxlength=10
+				maxlength=30
 				input-align="center"
 				v-model="value" 
 				v-if="this.$route.path=='/search' || this.$route.path=='/'"
@@ -17,10 +18,11 @@
 				@search="onSearch"
 				/>
 		</transition>
-		<transition name="back_change">
-			<div class="nav_cancle" v-if="!isSearch" @click="goBack"> 取消 </div>
+		<transition name="back-change">
+			<div class="nav-cancle" v-if="!isSearch" @click="goBack"> 取消 </div>
 		</transition>
   </div>
+</transition>
 </template>
 
 <script>
@@ -49,7 +51,7 @@ export default {
 		//按下键盘的回车就把输入的内容传值到bus再传到serach组件开始搜索
 		onSearch(){
 			console.log(this.value); 
-			this.$eventBus.emit("searchMsg",this.value) 
+			this.$eventBus.emit("Msg",this.value) 
 		}
 		
 
@@ -82,42 +84,49 @@ export default {
 	justify-content: space-around;
 	z-index: 100;
 	
-	//标题动画
-
-	.title_change-enter-active, .title_change-leave-active {
+	// 整个nav过渡
+	.nav-change-enter-active, .nav-change-leave-active {
     transition: all 0.2s;
 		transition-timing-function: linear;
 	}
-  .title_change-enter,  .title_change-leave-to{
+  .nav-change-enter,  .nav-change-leave-to{
+    transform: translateY(40px);
+  }
+	//标题动画
+	.title-change-enter-active, .title-change-leave-active {
+    transition: all 0.2s;
+		transition-timing-function: linear;
+	}
+  .title-change-enter,  .title-change-leave-to{
 		opacity: .5;
     transform: translateX(-40px);
   }
 
 	//搜索框动画
-	.search_change-enter-active, .search_change-leave-active {
+	.search-change-enter-active, .search-change-leave-active {
     transition: all 0.1s;
 		transition-timing-function: linear;
 	}
-  .search_change-enter,  .search_change-leave-to{
+  .search-change-enter,  .search-change-leave-to{
 		opacity: 0;
     transform: translateX(20px);
   }
 		//取消按钮的动画
-	.back_change-enter-active, .back_change-leave-active{
+	.back-change-enter-active, .back-change-leave-active{
     transition: all 0.2s;
 		transition-timing-function: linear;
   }
-	.back_change-enter,  .back_change-leave-to{
+	.back-change-enter,  .back-change-leave-to{
 		opacity: .5;
     transform: translateX(40px);
   }
-	.nav_title{
+	.nav-title{
 		display: block;
 		flex-grow: 1;
 		padding-left: 10px;
 		font-weight: 600;
 	} 
-	.nav_cancle{
+	.nav-cancle{
 		display: block;
 		flex-grow: 1;
 		padding-right: 10px;

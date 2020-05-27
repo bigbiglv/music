@@ -5,7 +5,12 @@
       <router-link to="/about">About</router-link>
     </div> -->
     <NavBar v-if="navShow"></NavBar>
-      <router-view class="app-views"/>
+    <!-- 使用keep-alive缓存页面 -->
+      <keep-alive>  
+        <router-view class="app-views" v-if="$route.meta.keepAlive" /> 
+      </keep-alive>
+        <router-view  v-if="!$route.meta.keepAlive" />
+    <simple-play></simple-Play>
     <!-- v-if判断组件是否需要加载 -->
     <TabBar v-if="tabShow" ></TabBar>
   </div>
@@ -14,6 +19,7 @@
 <script>
 import TabBar from "@/components/TabBar.vue";
 import NavBar from "@/components/NavBar.vue";
+import SimplePlay from "@/components/SimplePlay.vue";
 export default {
   name: "Home",
   data(){
@@ -25,17 +31,20 @@ export default {
   },
   components: {
     TabBar,
-    NavBar
+    NavBar,
+    SimplePlay
   },
   methods:{
-    
+    goBack(){
+      this.$router.go(-1);
+    }
   },
   created(){
   },
   watch:{
     '$route' (){ 
       //监听路由路径判断是否加载TabbBar和 NavBar
-      if(this.$route.path=="/" || this.$route.path=="/about" || 
+      if(this.$route.path=="/" || this.$route.path=="/charts" || 
          this.$route.path=="/artist" ||this.$route.path=="/mine"){
           this.tabShow=true;
           this.navShow=true;

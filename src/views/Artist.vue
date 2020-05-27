@@ -13,9 +13,9 @@
         <label for="all">全部</label> 
 		  <input type="radio" name="lll" value="1"  class="button" id="man" @click="setType('B')"/>
         <label for="man">男歌手</label>
-		  <input type="radio" name="lll" value="2"  class="button" id="woman" @click="setType(C)"/>
+		  <input type="radio" name="lll" value="2"  class="button" id="woman" @click="setType('C')"/>
         <label for="woman">女歌手</label>
-		  <input type="radio" name="lll" value="3"  class="button" id="team" @click="setType(D)"/>
+		  <input type="radio" name="lll" value="3"  class="button" id="team" @click="setType('D')"/>
         <label for="team">乐队</label>
     </div>
     {{initial}}
@@ -30,8 +30,7 @@
 			<img :src="item.img1v1Url"  width="50" height="50"  v-lazy="item.img1v1Url">
 		</div>
 		
-		<!-- <van-index-bar>
-      <van-index-anchor index="A" />
+		<!-- <van-index-bar>      <van-index-anchor index="A" />
       <van-cell title="文本" />
       <van-cell title="文本" />
       <van-cell title="文本" />
@@ -174,14 +173,14 @@ export default {
   data(){
     return{  
 			artistList:[],  //存放歌手的数组
-			limit:10,   		//显示的数据数量
+			limit:20,   		//显示的数据数量
       offset:0,   			//开始显示的地方
       initial:"A",    //index索引
       area:-1,        //语种分类
         //是否刷新错误
       loading: false,  //是否下拉刷新
       finished: false,
-      type:"2"
+      type:"-1"
     }
 	},
 	methods:{
@@ -201,7 +200,7 @@ export default {
       setTimeout(() => {
         this.offset+=10;
         // this.getArtist();
-        var url=`http://localhost:3000/artist/list?limit=${this.limit}&offset=${this.offset}&initial=${this.initial}}`;
+        var url=`http://localhost:3000/artist/list?limit=${this.limit}&offset=${this.offset}&initial=${this.initial}&area=${this.type}&type=${this.type}}`;
 			this.axios(url).then(result=>{
 				if(result.status==200){
 					this.artistList.push(...result.data.artists);

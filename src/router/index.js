@@ -8,6 +8,7 @@ const routes = [
     path: "/",
     name: "Home",
     meta:{
+      keepAlive: true,
       pageMsg:{
         page_title: "首页" //NavBar标题
       }
@@ -15,23 +16,25 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/charts",
+    name: "Charts",
     meta:{
+      keepAlive: true,
       pageMsg:{
-        page_title: "about"
+        page_title: "排行版"
       }
     },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../views/Charts.vue")
   },
   {
     path:"/artist", 
     name:"Artist", 
     meta:{
+      keepAlive: true,
       pageMsg:{
         page_title:"歌手 "  
       }
@@ -44,6 +47,7 @@ const routes = [
     path:"/search", 
     name:"Search", 
     meta:{
+      keepAlive: false,
       pageMsg:{
         page_title:null  
       }
@@ -54,11 +58,56 @@ const routes = [
     path:"/mine", 
     name:"Mine", 
     meta:{
+      keepAlive: true,
       pageMsg:{
         page_title:"我的音乐"    
       }
     },
     component: resolve => require(['../views/Mine.vue'], resolve)
+  },
+  {
+    path:"/test", 
+    name:"Test", 
+    meta:{
+      keepAlive: false,
+      pageMsg:{
+        page_title:"test"    
+      }
+    },
+    component: resolve => require(['../views/Test.vue'], resolve)
+  },
+  {
+    path:"/login", 
+    name:"Login", 
+    meta:{
+      keepAlive: false,
+      pageMsg:{
+        page_title:"test"    
+      }
+    },
+    component: resolve => require(['../views/Login.vue'], resolve)
+  },
+  {
+    path:"/chartslist", 
+    name:"ChartsList", 
+    meta:{
+      keepAlive: false,
+      pageMsg:{
+        page_title: null    
+      }
+    },
+    component: resolve => require(['../views/ChartsList.vue'], resolve)
+  },
+  {
+    path:"/playlist", 
+    name:"PlayList", 
+    meta:{
+      keepAlive: false,
+      pageMsg:{
+        page_title: null    
+      }
+    },
+    component: resolve => require(['../views/PlayList.vue'], resolve)
   }
 ];
 
@@ -69,3 +118,4 @@ const router = new VueRouter({
 });
 
 export default router;
+
